@@ -82,9 +82,9 @@
       margin: auto;
       padding: 12px 18px;
       display: flex;
-      gap: 14px;
       align-items: center;
       justify-content: space-between;
+      gap: 14px;
     }
 
     .logo {
@@ -92,7 +92,8 @@
       letter-spacing: 2px;
       font-weight: 800;
       color: var(--brand);
-      text-shadow: 0 0 12px #00f0ff99
+      text-shadow: 0 0 12px #00f0ff99;
+      font-size: 1.3em;
     }
 
     .cta {
@@ -122,6 +123,20 @@
 
     .btn:active {
       transform: translateY(0) scale(.99)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      /* optional: makes edges smooth */
+      object-fit: contain;
     }
 
     .btn.brand {
@@ -418,13 +433,17 @@
   <!-- Nav -->
   <header class="nav" role="banner">
     <div class="nav-inner">
-      <div class="logo">DATA LOGIX CLUB</div>
+      <div class="brand">
+        <img src="datalgix.png" alt="Data Logix Logo" class="brand-logo">
+        <span class="logo">DATA LOGIX CLUB</span>
+      </div>
       <div class="cta">
         <button class="btn" id="scrollToEvents">View Events</button>
         <!-- <a href="#" id="primaryRegister" class="btn brand">Register</a> -->
       </div>
     </div>
   </header>
+
 
   <!-- Intro -->
   <section class="intro" aria-labelledby="intro-title">
