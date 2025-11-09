@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATA LOGIX CLUB — Event Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at 25% 60%, #0ff7fc 0%, #003366 60%, #090921 100%), 
+                  linear-gradient(120deg, #b967ff44 0%, #0fffc3 60%, #4a274a88 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    ::selection {
+      background: #00ffd0cc;
+      color: #180638;
+    }
+    .intro {
+      max-width: 900px;
+      background: rgba(18,10,40,0.81);
+      margin: 30px auto 30px auto;
+      border-radius: 22px;
+      padding: 28px 36px;
+      box-shadow: 0 0 32px 0 #0fffc3aa, 0 0 9px 0 #7400ff44;
+      font-size: 1.15em;
+      color: #46e6fc;
+      line-height: 1.8;
+      font-family: 'Orbitron', Arial, sans-serif;
+      text-align: center;
+      border: 2.5px solid #0fffc3;
+      animation: neonborder 3s infinite alternate;
+    }
+    @keyframes neonborder {
+      from { box-shadow: 0 0 16px #0fffc3, 0 0 1.5px 0 #7400ff44;}
+      to   { box-shadow: 0 0 34px #0fffc3, 0 0 22px 0 #d580ff88;}
+    }
+    .intro h1, .intro h2 {
+      text-shadow: 0 0 22px #00efff, 0 0 6px #fff3, 0 0 2px #c3fa7b;
+      font-weight: bold;
+    }
+    .intro h1 {
+      color: #0fffc3;
+      font-size: 2.3em;
+      margin-bottom: 6px;
+      letter-spacing: 2.5px;
+      text-shadow: 0 0 18px #01f7fa, 0 0 12px #9605ff66, 0 0 4px #f3ffaa53;
+    }
+    .intro h2 {
+      color: #fa52ff;
+      font-size: 1.45em;
+      letter-spacing: 2.2px;
+      font-family: 'Orbitron', Arial, sans-serif;
+      text-shadow: 0 0 18px #f06fff, 0 0 10px #01f7fa88;
+    }
+    .intro .subtitle {
+      color: #fff8f3;
+      font-size: 1.13em;
+      margin-bottom: 16px;
+      font-weight: bold;
+      text-shadow: 0 0 12px #0fffc3, 0 0 4px #e5c0fa85;
+    }
+    .intro .desc {
+      color: #9bfaff;
+      font-family: 'Roboto', Arial, sans-serif;
+      margin-bottom: 18px;
+      text-shadow: 0 0 8px #1bf7fa88;
+    }
+    .intro .access {
+      background: #191970cc;
+      color: #00ffe4;
+      font-size: 1.19em;
+      border-radius: 12px;
+      margin: 18px 0 0 0;
+      padding: 8px 5px;
+      box-shadow: 0 0 14px #0fffc388, 0 0 13px #7400ff11 inset;
+      border: 2.5px solid #0fffc3;
+      text-shadow: 0 0 8px #0fffc3cc, 0 0 1px #fff;
+    }
+    .events-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 30px auto 40px auto;
+      max-width: 1200px;
+    }
+    .event-card {
+      width: 305px;
+      background: rgba(15,19,64,0.87);
+      border-radius: 24px;
+      box-shadow: 0 0 26px 0 #0fffc3cc, 0 5px 32px #1bf7faa9;
+      overflow: hidden;
+      position: relative;
+      animation: pop-in 1s cubic-bezier(.23,1.19,.34,1) forwards;
+      transform: scale(0.92);
+      opacity: 0;
+      border: 2.5px solid #15f7f7cc;
+      transition: box-shadow 0.30s, border 0.3s;
+    }
+    .event-card:hover {
+      box-shadow: 0 0 35px 2px #e561f5b2, 0 0 38px 0 #0fffc388;
+      border: 2.9px solid #d580ff;
+    }
+    .event-card:nth-child(1){animation-delay:0s;}
+    .event-card:nth-child(2){animation-delay:0.13s;}
+    .event-card:nth-child(3){animation-delay:0.26s;}
+    .event-card:nth-child(4){animation-delay:0.39s;}
+    .event-card:nth-child(5){animation-delay:0.52s;}
+    @keyframes pop-in {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .event-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 2px solid #0fffc366;
+      transition: filter 0.37s cubic-bezier(.23,.5,.75,1.37), box-shadow 0.15s;
+      box-shadow: 0 0 24px #0fffc372, 0 0 12px #b967ffc0;
+    }
+    .event-card:hover .event-img {
+      filter: brightness(1.07) saturate(1.4) blur(1.2px);
+      box-shadow: 0 0 38px 3px #b967ffc0, 0 0 33px #00eeffc0;
+    }
+    .card-body {
+      padding: 16px 18px 18px 18px;
+      text-align: center;
+    }
+    .card-title {
+      color: #ece6ff; font-weight: 900; font-size: 1.16em;
+      font-family: 'Orbitron', Arial, sans-serif;
+      text-shadow: 0 0 10px #0fffc3ee, 0 0 6px #b967ff88;
+    }
+    .card-info {
+      font-size: 0.99em;
+      line-height: 1.5;
+      color: #81fad1;
+      margin-bottom: 7px;
+      font-family: 'Roboto', Arial, sans-serif;
+      text-shadow: 0 0 6px #0fffc388;
+    }
+    .card-btns {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+    }
+    .event-btn {
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 1em;
+      font-weight: 900;
+      cursor: pointer;
+      background: #160959;
+      color: #fff;
+      box-shadow: 0 0 19px #0fffcb99, 0 0 2px #bb57ffcb;
+      outline: none;
+      letter-spacing: 0.04em;
+      transition: 0.17s background, 0.23s transform, 0.14s color, 0.22s box-shadow;
+      border: 2px solid #0fffc3cc;
+      text-shadow: 0 0 14px #0fffc3,0 0 2px #fff;
+    }
+    .event-btn.register {
+      background: linear-gradient(90deg,#0fffc3 10%, #fa52ff 90%);
+      color: #261863;
+      border: 2px solid #fa52ff;
+      text-shadow: 0 0 10px #fa52ff,0 0 2px #fff;
+    }
+    .event-btn.details {
+      background: linear-gradient(90deg,#7400ff 15%, #00f9ff 95%);
+      color: #0affc3;
+      border: 2px solid #0fffc3;
+    }
+    .event-btn:hover {
+      transform: scale(1.12) rotate(-1deg);
+      background: #000;
+      color: #24ffc4;
+      box-shadow: 0 0 35px #fa52ffcc, 0 0 14px #0fffc3cc, 0 0 2px #fff;
+      border-color: #fff44b;
+    }
+    /* Modal styles */
+    .modal-bg {
+      position: fixed;
+      z-index: 20;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(30,0,60,0.51);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      backdrop-filter: blur(2.7px);
+    }
+    .modal-bg.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-content {
+      width: 97vw; max-width: 420px;
+      background: #1a0830fa;
+      border-radius: 18px;
+      box-shadow: 0 0 17px #b967ffbb, 0 0 19px #0fffc3cc;
+      position: relative;
+      padding: 35px 22px 15px 22px;
+      text-align: center;
+      border: 2.3px solid #0fffc3bb;
+      animation: modal-anim 0.46s cubic-bezier(.26,2.41,.39,.88) forwards;
+      transform: scale(0.65);
+      opacity: 0;
+    }
+    .modal-bg.active .modal-content {
+      opacity: 1;
+      transform: scale(1);
+    }
+    @keyframes modal-anim {
+      to {
+        opacity: 1; transform: scale(1);
+      }
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 2em;
+      font-weight: 900;
+      background: none;
+      border: none;
+      color: #0fffc3;
+      cursor: pointer;
+      outline: none;
+      text-shadow: 0 0 8px #0fffc3, 0 0 3px #fff;
+      transition: color 0.13s;
+    }
+    .modal-close:hover { color: #fa52ff; }
+    .modal-image {
+      width: 88%;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      margin-top: -10px;
+      box-shadow: 0 2px 18px #0fffc388;
+      border: 2px solid #fa52ff77;
+    }
+    .modal-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.23em;
+      font-weight: 900;
+      margin-bottom: 12px;
+      color: #0fffc3;
+      text-shadow: 0 0 11px #fa52ffb2,0 0 4px #fff;
+    }
+    .modal-desc {
+      font-size: 1em;
+      color: #f3f9ff;
+      margin-bottom: 7px;
+      font-family: 'Roboto', Arial, sans-serif;
+      text-shadow: 0 0 4px #0fffc388;
+    }
+    .contact {
+      margin-top: 9px;
+      font-size: 0.98em;
+      color: #24ffc4;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    @media only screen and (max-width: 700px){
+      .events-grid {
+        flex-direction: column;
+        gap: 32px;
+        align-items: center;
+      }
+      .event-card {
+        width: 96vw;
+        min-width: unset;
+      }
+      .intro {padding: 13px 7vw;}
+    }
+  </style>
+</head>
+<body>
+  <div class="intro">
+    <h1>🎯 DATA LOGIX CLUB PRESENTS</h1>
+    <h2>⚙ Innovate. Analyze. Discover. ⚙</h2>
+    <div class="subtitle">
+      💫 WELCOME TO DATA LOGIX CLUB 💫
+    </div>
+    <div class="desc">
+      Where minds analyze, systems evolve, and innovation thrives.<br>
+      Analytical architects of Amity University Bengaluru, uniting logic, data, and creativity into one powerful network.
+    </div>
+    <div class="access">
+      🚨 [ACCESS GATEWAY OPEN] 🚨<br>
+      Only the curious, analytical, and innovative may enter.<br>
+      Click below to register and secure your place!
+    </div>
+  </div>
+  <div class="events-grid" id="eventsGrid"></div>
+  <!-- Modal -->
+  <div class="modal-bg" id="eventModal">
+    <div class="modal-content" id="modalContent">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+  </div>
+  <script>
+    const registrationLink = "https://your-registration-url.com";
+    const contactDetails = "Contact: Reshma (7561073489), Janet (9322715795), Event Support (7994201392, 8008404654)";
+    const events = [
+      {
+        img: "event_1.jpg",
+        title: "404: Life Not Found",
+        info: "A Murder, A Model, A Mystery Only Data Can Solve<br>🕓 11:40 AM – 1:15 PM | 📍 Room No. 512A",
+        details: "Step inside a world of mystery and logic. Can data solve murder? Engage and analyze using data science skills.",
+        registerUrl: registrationLink
+      },
+      {
+        img: "event_3.jpg",
+        title: "Insight Odyssey",
+        info: "A Journey from Data to Discovery<br>🕓 11:40 AM – 1:15 PM | 📍 Room No. 214",
+        details: "Explore data's transformative journey. Uncover insights and discover how analytics leads to new possibilities.",
+        registerUrl: registrationLink
+      },
+      {
+        img: "event_5.jpg",
+        title: "Data-Verse: Git Fundamentals",
+        info: "Git Fundamentals: From First Commit to Pro-Level Collaboration<br>🕑 2:00 PM | 📍 Seminar Hall, 4th Floor<br>👨‍💻 Speaker: Pavan Kumar V J, Zetwerk",
+        details: "Join our technical talk and unlock advanced Git workflows, collaboration secrets, and coding best practices!",
+        registerUrl: registrationLink
+      },
+      {
+        img: "event_2.jpg",
+        title: "The Hungry Algorithm",
+        info: "Decode. Analyze. Compete.<br>🕒 3:00 PM – 3:30 PM | 📍 Seminar Hall, 4th Floor",
+        details: "Compete with peers in this fun algorithm challenge. Decode problems, analyze data, and win tech accolades.",
+        registerUrl: registrationLink
+      },
+      {
+        img: "event_4.jpg",
+        title: "Feedback — The Hungry Algorithm",
+        info: "Help us improve! Give quick feedback for better events.",
+        details: "Your feedback powers our innovation. Share your thoughts on The Hungry Algorithm and help optimize future events.",
+        registerUrl: registrationLink
+      },
+    ];
+    // Load event cards
+    const grid = document.getElementById('eventsGrid');
+    events.forEach((ev, idx) => {
+      let card = document.createElement('div');
+      card.className = 'event-card';
+      card.innerHTML = `
+        <div class="card-body">
+          <div class="card-title">${ev.title}</div>
+          <div class="card-info">${ev.info}</div>
+          <div class="card-btns">
+            <button class="event-btn register" onclick="window.open('${ev.registerUrl}', '_blank')">Register</button>
+            <button class="event-btn details" onclick="showDetails(${idx})">Details</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    function showDetails(idx) {
+      const modal = document.getElementById('eventModal');
+      const content = document.getElementById('modalContent');
+      const ev = events[idx];
+      content.innerHTML = `
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-title">${ev.title}</div>
+        <div class="modal-desc">
+          <strong>What:</strong> ${ev.details}<br>
+          <strong>When/Where:</strong> ${ev.info}<br>
+          <strong>${contactDetails}</strong>
+        </div>
+        <a href="${ev.registerUrl}" target="_blank">
+          <button class="event-btn register" style="margin: 10px 0 0 0; width: 90%;">Register Now</button>
+        </a>
+      `;
+      modal.classList.add('active');
+    }
+    function closeModal() {
+      document.getElementById('eventModal').classList.remove('active');
+    }
+    window.onclick = function(event) {
+      let modal = document.getElementById('eventModal');
+      if (event.target == modal) modal.classList.remove('active');
+    }
+  </script>
+</body>
+</html>
